@@ -3,6 +3,7 @@ package org.usfirst.frc.team4627.robot;
 
 import org.usfirst.frc.team4627.robot.subsystems.Climber;
 import org.usfirst.frc.team4627.robot.subsystems.DriverTrain;
+import org.usfirst.frc.team4627.robot.subsystems.Sensors;
 import org.usfirst.frc.team4627.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	public static DriverTrain driveTrain;
 	public static Climber climber;
+	public static Sensors sensors;
 	public static OI oi;
 	public static NetworkTable nwtables;
 
@@ -39,9 +41,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		Vision.run();
+		//Vision.run();
 		driveTrain =  new DriverTrain();
 		climber = new Climber();
+		sensors = new Sensors();
 		oi = new OI();
 		SmartDashboard.putData("Auto mode", chooser);
 		nwtables = NetworkTable.getTable("dataTables");
