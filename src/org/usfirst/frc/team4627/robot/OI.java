@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4627.robot;
 
 import org.usfirst.frc.team4627.robot.commands.ChangeDirection;
+import org.usfirst.frc.team4627.robot.commands.SetMotors;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -44,10 +45,10 @@ public class OI {
 	public OI(){
 	
 		driverA.whenPressed(new ChangeDirection());
-		/*driverB.whenPressed(null);
-		driverX.whenPressed(null);
-		driverY.whenPressed(null);
-		driverLeftBumper.whenPressed(null);
+		//driverB.whenPressed(new SetMotors(0.5, 0.5));
+		//driverX.whenPressed(new SetMotors(0, 0));
+		//driverY.whenPressed(new SetMotors(0.25, 0.25));
+		/*driverLeftBumper.whenPressed(null);
 		driverRightBumper.whenPressed(null);
 		driverBack.whenPressed(null);
 		driverStart.whenPressed(null);

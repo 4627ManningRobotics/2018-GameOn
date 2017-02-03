@@ -7,12 +7,20 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
+
+
 public class SetMotors extends Command {
 
-    public SetMotors() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+	double lSpeed;
+	
+	double rSpeed;
+	
+    public SetMotors(double lSpd, double rSpd) {
+
     	requires(Robot.driveTrain);
+    	
+    	lSpeed = lSpd;
+    	rSpeed = rSpd;
     }
 
     // Called just before this Command runs the first time
@@ -21,6 +29,8 @@ public class SetMotors extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.driveTrain.setLeftMotors(lSpeed);
+    	Robot.driveTrain.setRightMotors(rSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

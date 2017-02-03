@@ -27,19 +27,20 @@ public class AngleTurn extends Command {
     Robot.sensors.preAngle = (int)Robot.sensors.getGyroAng();
     relativeAngle = (desiredAngle + Robot.sensors.preAngle);
         
-   	System.out.println("AutoTurn is working");
-   		 
+   	System.out.println("Pre Angle: " + Robot.sensors.preAngle);
+   	System.out.println("Post Angle: " + Robot.sensors.postAngle);
+   	System.out.println("Relative Angle: " + relativeAngle);
     	// Sets the direction of the robot
    		
    		if(relativeAngle > Robot.sensors.preAngle){
-    	 Robot.driveTrain.setLeftMotors(0.75);
-         Robot.driveTrain.setRightMotors(-0.75);
+    	 Robot.driveTrain.setLeftMotors(-0.75);
+         Robot.driveTrain.setRightMotors(0.75);
          
       
    		}
    		if(relativeAngle < Robot.sensors.preAngle){
-       	 Robot.driveTrain.setLeftMotors(-0.75);
-            Robot.driveTrain.setRightMotors(0.75);
+       	 Robot.driveTrain.setLeftMotors(0.75);
+            Robot.driveTrain.setRightMotors(-0.75);
             
          
       		}

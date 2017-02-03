@@ -21,7 +21,7 @@ public class DriverTrain extends Subsystem {
     	CANTalon topLeft = new CANTalon(RobotMap.MOTOR_LEFT_TOP);
     	CANTalon bottomLeft = new CANTalon(RobotMap.MOTOR_LEFT_BOTTOM);
     	
-    	boolean isForward = true;
+    	boolean isForward = false;
     
     
     public void setLeftMotors(double speed) {

@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4627.robot;
 
+import org.usfirst.frc.team4627.robot.commands.ManualAuto;
 import org.usfirst.frc.team4627.robot.subsystems.Climber;
 import org.usfirst.frc.team4627.robot.subsystems.DriverTrain;
 import org.usfirst.frc.team4627.robot.subsystems.Sensors;
@@ -80,7 +81,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new ;
+		autonomousCommand = new ManualAuto();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
