@@ -36,11 +36,12 @@ public class RobotMap {
 		//Motor Controllers
 		public static final int MOTOR_RIGHT_TOP = 2;
 		public static final int MOTOR_RIGHT_BOTTOM = 3;
-		public static final int MOTOR_LEFT_TOP = 0;
-		public static final int MOTOR_LEFT_BOTTOM = 1;
+		public static final int MOTOR_LEFT_TOP = 4;
+		public static final int MOTOR_LEFT_BOTTOM = 5;
 		public static final int MOTOR_CLIMBING = 4;
-		public static final int MOTOR_INTAKE = 0;
-		public static final int MOTOR_SHOOTER = 0;
+		public static final int MOTOR_INTAKE = 7;
+		public static final int MOTOR_SHOOTER = 6;
+		public static final int MOTOR_OUT_TAKE = 1;
 		
 		public static final double ROBOT_MAX_SPEED = 0.98;
 		public static final double ROBOT_MIN_SPEED = -0.98;

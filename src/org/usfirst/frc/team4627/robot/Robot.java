@@ -4,6 +4,7 @@ package org.usfirst.frc.team4627.robot;
 import org.usfirst.frc.team4627.robot.commands.ManualAuto;
 import org.usfirst.frc.team4627.robot.subsystems.Climber;
 import org.usfirst.frc.team4627.robot.subsystems.DriverTrain;
+import org.usfirst.frc.team4627.robot.subsystems.OutTake;
 import org.usfirst.frc.team4627.robot.subsystems.Sensors;
 import org.usfirst.frc.team4627.robot.subsystems.Vision;
 
@@ -31,14 +32,22 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	public static OI oi;
 	public static NetworkTable nwtables;
+	public static OutTake outTake; 
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
+    /**
+     * @apiNote Use table.getNumber("DistFromCamCenter") to get the distance between the gear spike and the center of the camera.
+     * @apiNote Use table.getNumber("AreaRatio") to get the area ratio of the two strips of reflective tape.
+     * @apiNote Use table.getNumber("DistFromTape") to get the distance from the reflective tape.
+     *
+     * This should be all we need to figure out the path for the robot to travel.
+     *
+     * For a concrete example of usage, see here: http://wpilib.screenstepslive.com/s/3120/m/7912/l/80205-writing-a-simple-networktables-program-in-c-and-java-with-a-java-client-pc-side
+     */
+	
+	
 	@Override
 	public void robotInit() {
 
@@ -48,7 +57,8 @@ public class Robot extends IterativeRobot {
 		sensors = new Sensors();
 		oi = new OI();
 		SmartDashboard.putData("Auto mode", chooser);
-		nwtables = NetworkTable.getTable("dataTables");
+		nwtables = NetworkTable.getTable("DataTable");
+		outTake = new OutTake(); 
 
 		
 	}
