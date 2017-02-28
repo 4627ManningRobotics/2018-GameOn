@@ -25,11 +25,12 @@ public class ManualAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new SetMotors(0.98, 0.98));
-    	addSequential(new Wait(0.3));
+    	addSequential(new Wait(2));
     	
     	addSequential(new SetMotors(0, 0));
     	addSequential(new Wait(4));
     	
+    	/*
     	addSequential(new SetMotors(-0.5, -0.5));
     	addSequential(new Wait(0.3));
     	
@@ -44,7 +45,7 @@ public class ManualAuto extends CommandGroup {
     	addSequential(new Wait(3));
     	
     	addSequential(new SetMotors(0, 0)); 
-    	
+    	*/
     	
     	
     	

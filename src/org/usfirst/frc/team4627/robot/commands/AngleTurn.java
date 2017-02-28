@@ -19,7 +19,7 @@ public class AngleTurn extends Command {
     	
     	
     }
-   
+   /*
     
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -46,6 +46,7 @@ public class AngleTurn extends Command {
       		}
    		
     }
+    */
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
@@ -53,6 +54,8 @@ public class AngleTurn extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	
+    	/*
     	if (relativeAngle <= Robot.sensors.getGyroAng() + 3 && relativeAngle >= Robot.sensors.getGyroAng() - 3) {
     		return true;
     	} else {
@@ -60,6 +63,7 @@ public class AngleTurn extends Command {
     		return false;
     		
     	}
+    	*/return true;
     }
 
     // Called once after isFinished returns true

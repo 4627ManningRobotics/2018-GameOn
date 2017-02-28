@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4627.robot.subsystems;
 
 import org.usfirst.frc.team4627.robot.RobotMap;
-import org.usfirst.frc.team4627.robot.commands.ControlLowGoalOutTake;
+import org.usfirst.frc.team4627.robot.commands.ControlAgitator;
 
 import com.ctre.CANTalon;
 
@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class OutTake extends Subsystem {
+public class Agitator extends Subsystem {
 	
-	CANTalon outTakeMotor = new CANTalon(RobotMap.MOTOR_OUT_TAKE);
+	CANTalon motor = new CANTalon(RobotMap.MOTOR_AGITATOR);
 
 	public void setMotor(double speed){ 
 		
-		outTakeMotor.set(speed);
+		motor.set(speed);
 		
 	}
     // Put methods for controlling this subsystem
@@ -24,7 +24,7 @@ public class OutTake extends Subsystem {
 
 	
     public void initDefaultCommand() {
-        setDefaultCommand(new ControlLowGoalOutTake());
+        setDefaultCommand(new ControlAgitator());
     }
 }
 

@@ -17,7 +17,7 @@ public class Sensors extends Subsystem {
 	public int preAngle;
 	public int postAngle;
 	
-	
+ 
 	public double getGyroAng() {
 		
 		double ang = gyro.getAngle();

@@ -1,26 +1,29 @@
 package org.usfirst.frc.team4627.robot.commands;
 
-import org.usfirst.frc.team4627.robot.subsystems.Vision;
-
-import com.sun.glass.ui.Robot;
+import org.usfirst.frc.team4627.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class StartVision extends Command {
+public class ToggleShooter extends Command {
 
-    public StartVision() {
+    public ToggleShooter() {
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.shooters);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if (Robot.shooters.getIsShooting())
+    		Robot.shooters.endShooting();
+    	else
+    		Robot.shooters.beginShooting();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Vision.run();
     }
 
     // Make this return true when this Command no longer needs to run execute()

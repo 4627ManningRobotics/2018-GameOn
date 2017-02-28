@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class SetClimbMotor extends Command {
 
     public SetClimbMotor() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	
     	requires(Robot.climber);
     }
@@ -24,10 +22,9 @@ public class SetClimbMotor extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double opRightTriggerAxis = Robot.oi.getOperatorRawAxis(RobotMap.AXIS_RIGHT_TRIGGER);
-    	double opLeftTriggerAxis = -1 * Robot.oi.getOperatorRawAxis(RobotMap.AXIS_LEFT_TRIGGER);
     	
     	
-    	Robot.climber.setClimbMotor(opRightTriggerAxis + opLeftTriggerAxis);
+    	Robot.climber.setClimbMotor(opRightTriggerAxis);
     }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

@@ -2,8 +2,6 @@ package org.usfirst.frc.team4627.robot.commands;
 
 import org.usfirst.frc.team4627.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
-package org.usfirst.frc.team4627.robot.commands;
 import org.usfirst.frc.team4627.robot.Robot;
 import org.usfirst.frc.team4627.robot.RobotMap;
 
@@ -17,7 +15,7 @@ public class LineUpPeg extends Command {
     public LineUpPeg() {
     	
        requires(Robot.driveTrain);
-       requires(Robot.sensors);
+       //requires(Robot.sensors);
   
     }
 
@@ -27,6 +25,8 @@ public class LineUpPeg extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	/*
     
    //double xDiff = (Robot.centerX - 160);
    
@@ -46,8 +46,13 @@ public class LineUpPeg extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
 
+}
+
+*/
+    }
 	@SuppressWarnings("deprecation")
 	protected boolean isFinished() {
+		/*
         if(Robot.nwtables.getNumber("DistFromCamCenter") > 155 && Robot.nwtables.getNumber("DistFromCamCenter") < 165) {
         	
         return true;
@@ -57,6 +62,7 @@ public class LineUpPeg extends Command {
         return false;
         	
         }
+        */return true;
     }
 
     // Called once after isFinished returns true

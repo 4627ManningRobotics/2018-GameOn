@@ -1,42 +1,33 @@
 package org.usfirst.frc.team4627.robot.commands;
 
 import org.usfirst.frc.team4627.robot.Robot;
+import org.usfirst.frc.team4627.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
+public class IntakeCommand extends Command {
 
-
-public class SetMotors extends Command {
-
-	double lSpeed;
-	
-	double rSpeed;
-	
-    public SetMotors(double lSpd, double rSpd) {
-
-    	requires(Robot.driveTrain);
-    	
-    	lSpeed = lSpd;
-    	rSpeed = rSpd;
+    public IntakeCommand() {
+        requires(Robot.intake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrain.setLeftMotors(lSpeed);
-    	Robot.driveTrain.setRightMotors(rSpeed);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
+    	Robot.intake.setInTakeMotor(Robot.oi.getOperatorRawAxis(RobotMap.AXIS_LEFT_TRIGGER));
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

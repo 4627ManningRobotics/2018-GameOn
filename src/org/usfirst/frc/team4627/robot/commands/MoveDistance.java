@@ -1,20 +1,15 @@
 package org.usfirst.frc.team4627.robot.commands;
 
-import org.usfirst.frc.team4627.robot.Robot;
-import org.usfirst.frc.team4627.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ControlLowGoalOutTake extends Command {
+public class MoveDistance extends Command {
 
-    public ControlLowGoalOutTake() {
+    public MoveDistance() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	
-    	requires(Robot.outTake); 
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +18,6 @@ public class ControlLowGoalOutTake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.outTake.setMotor(Robot.oi.getOperatorRawAxis(RobotMap.AXIS_LEFT_STICK_Y));
     }
 
     // Make this return true when this Command no longer needs to run execute()

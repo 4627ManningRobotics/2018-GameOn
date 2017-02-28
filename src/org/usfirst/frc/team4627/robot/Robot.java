@@ -4,9 +4,10 @@ package org.usfirst.frc.team4627.robot;
 import org.usfirst.frc.team4627.robot.commands.ManualAuto;
 import org.usfirst.frc.team4627.robot.subsystems.Climber;
 import org.usfirst.frc.team4627.robot.subsystems.DriverTrain;
-import org.usfirst.frc.team4627.robot.subsystems.OutTake;
+import org.usfirst.frc.team4627.robot.subsystems.HighGoal;
+import org.usfirst.frc.team4627.robot.subsystems.Intake;
+import org.usfirst.frc.team4627.robot.subsystems.Agitator;
 import org.usfirst.frc.team4627.robot.subsystems.Sensors;
-import org.usfirst.frc.team4627.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,12 +28,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	public static DriverTrain driveTrain;
-	public static Climber climber;
-	public static Sensors sensors;
+	public static DriverTrain driveTrain = new DriverTrain();
+	public static Climber climber = new Climber();
+	//public static Sensors sensors;
 	public static OI oi;
-	public static NetworkTable nwtables;
-	public static OutTake outTake; 
+	//public static NetworkTable nwtables;
+	public static Agitator agitator = new Agitator(); 
+	public static Intake intake = new Intake();
+	public static HighGoal shooters = new HighGoal();
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -50,15 +53,13 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void robotInit() {
-
-		//Vision.run();
-		driveTrain =  new DriverTrain();
-		climber = new Climber();
-		sensors = new Sensors();
 		oi = new OI();
-		SmartDashboard.putData("Auto mode", chooser);
-		nwtables = NetworkTable.getTable("DataTable");
-		outTake = new OutTake(); 
+		
+		//sensors = new Sensors();
+		
+		//SmartDashboard.putData("Auto mode", chooser);
+		//nwtables = NetworkTable.getTable("DataTable");
+
 
 		
 	}
@@ -132,6 +133,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putData(driveTrain);
+		SmartDashboard.putBoolean("isForward", driveTrain.getForward());
 	}
 
 	/**

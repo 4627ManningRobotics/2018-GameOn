@@ -38,16 +38,22 @@ public class RobotMap {
 		public static final int MOTOR_RIGHT_BOTTOM = 3;
 		public static final int MOTOR_LEFT_TOP = 4;
 		public static final int MOTOR_LEFT_BOTTOM = 5;
-		public static final int MOTOR_CLIMBING = 4;
-		public static final int MOTOR_INTAKE = 7;
-		public static final int MOTOR_SHOOTER = 6;
-		public static final int MOTOR_OUT_TAKE = 1;
-		
+		public static final int MOTOR_CLIMBING = 1;
+		public static final int MOTOR_INTAKE = 6;
+		public static final int MOTOR_SHOOTER = 7;
+		public static final int MOTOR_AGITATOR = 0;
+				
 		public static final double ROBOT_MAX_SPEED = 0.98;
 		public static final double ROBOT_MIN_SPEED = -0.98;
 		public static final double ROBOT_MAX_CLIMB_SPEED = 0.98;
 		public static final double ROBOT_MIN_CLIMB_SPEED = -0.98;
+		public static final double AUTO_TARGET_SPIN_SPEED = 0.5;
+		
+		public static final double AUTO_VELOCITY = 0.274;
+		public static final double AUTO_SPEED = 0.3;
 		
 		public static final int CAMERA_1 = 0;
 		public static final int CAMERA_2 = 1;
+		
+		public static final double SHOOTER_SPEED_FAR = 50;
 }
