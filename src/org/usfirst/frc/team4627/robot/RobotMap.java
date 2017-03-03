@@ -7,9 +7,9 @@ package org.usfirst.frc.team4627.robot;
  * floating around.
  */
 public class RobotMap {
-		public static final double TIRES_KP = 0.0089;
-		public static final double TIRES_KI = 0.0000045;
-		public static final double TIRES_KD = 0.00;
+		public static final double TIRES_KP = 0.003;
+		public static final double TIRES_KI = 0.0000035;
+		public static final double TIRES_KD = 0.003;
 	
 		//Robot Axis'
 		public static final int AXIS_RIGHT_TRIGGER = 3;
@@ -57,10 +57,14 @@ public class RobotMap {
 		
 		public static final double SHOOTER_SPEED_FAR = -2000;
 
-		public static final double X_DEADZONE = 0.2;
+		public static final double X_DEADZONE = 0.16;
 
 		public static final double AUTO_SPEED= 0.3;
-		public static final double AUTO_SECPFT = .55;
+		public static final double AUTO_SECPFT = .38;
+		public static final double CAM_CENTER_OFFSET = 75;
+		public static final double REGRESSION_M = -11.14;
+		public static final double REGRESSION_B = 130.3;
+		public static final double AUTO_SIDE_DIST = 7.5;
 
 }
 

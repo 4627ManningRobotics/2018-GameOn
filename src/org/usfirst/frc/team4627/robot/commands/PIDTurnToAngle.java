@@ -13,7 +13,6 @@ public class PIDTurnToAngle extends Command {
 	double target;
     public PIDTurnToAngle(double angle) {
     	target=angle;
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
     }
 
@@ -25,8 +24,10 @@ public class PIDTurnToAngle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	Robot.driveTrain.setLeftMotors(Robot.driveTrain.PIDOutput);
     	Robot.driveTrain.setRightMotors(-Robot.driveTrain.PIDOutput);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

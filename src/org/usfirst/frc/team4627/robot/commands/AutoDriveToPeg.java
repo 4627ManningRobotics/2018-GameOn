@@ -19,12 +19,16 @@ public class AutoDriveToPeg extends Command {
     protected void initialize() {
     	double distance = Robot.table.getNumber("Distance", 0)-.3;
     	double time = distance*RobotMap.AUTO_SECPFT;
-    	setTimeout(time);
+    	setTimeout(Math.abs(time));
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double angle = -Robot.table.getNumber("DistFromCamCenter", 0)/3;
+    	
+    	double dist = Robot.table.getNumber("DistFromCamCenter", 0);
+    	//double offset = RobotMap.REGRESSION_M * dist + RobotMap.REGRESSION_B;
+    	
+    	double angle = -(dist + 110)/3;
     	double setpoint =  (Robot.sensors.getFused()  +  angle)    %360  ;
     	if (setpoint <0) 
     		setpoint+=360;
@@ -32,11 +36,10 @@ public class AutoDriveToPeg extends Command {
     	Robot.driveTrain.enable();
     	
     	
-    	Robot.driveTrain.setLeftMotors( (RobotMap.AUTO_SPEED + (Robot.driveTrain.PIDOutput)) );
-    	Robot.driveTrain.setRightMotors( (RobotMap.AUTO_SPEED - (Robot.driveTrain.PIDOutput)) );
+    	Robot.driveTrain.setLeftMotors( (-RobotMap.AUTO_SPEED + (Robot.driveTrain.PIDOutput)) );
+    	Robot.driveTrain.setRightMotors( (-RobotMap.AUTO_SPEED - (Robot.driveTrain.PIDOutput)) );
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	return isTimedOut();
     }

@@ -78,7 +78,11 @@ public class OI {
 	 * @return Returns a double for the value
 	 */
 	public double getDriverRawAxis(int axis){
-		return driver.getRawAxis(axis);
+		double val = driver.getRawAxis(axis);
+		if (val>=0)
+			return (val*val);
+		else
+			return (-val*val);
 	}
 	
 	/**

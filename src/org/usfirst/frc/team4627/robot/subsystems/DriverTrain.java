@@ -27,7 +27,7 @@ public class DriverTrain extends PIDSubsystem {
     	this.getPIDController().setContinuous(true);
     	this.getPIDController().setOutputRange(-1, 1);
     	this.getPIDController().setAbsoluteTolerance(5);
-    	this.getPIDController().setToleranceBuffer(25);
+    	this.getPIDController().setToleranceBuffer(1);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -24,6 +24,7 @@ public class AutoDriveForward extends Command {
     	
     	double opposite = hypotenuse*Math.cos(angleOne);
     	double time = opposite*RobotMap.AUTO_SECPFT;
+    	System.out.println(time);
     	setTimeout(Math.abs(time));
     }
 

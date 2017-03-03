@@ -3,6 +3,8 @@ package org.usfirst.frc.team4627.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,6 +17,7 @@ public class Sensors extends Subsystem {
     // here. Call these from Commands.
 
 	AHRS gyro = new AHRS(I2C.Port.kOnboard);
+	Relay backLights = new Relay(0);
 	
 	public double preAngle;
 	public double normAng;
@@ -28,6 +31,13 @@ public class Sensors extends Subsystem {
 		
 		return ang;
 		
+	}
+	
+	public void setLights(boolean bool) {
+		if (bool)
+			backLights.set(Value.kForward);
+		else
+			backLights.set(Value.kOff);
 	}
 	
 	public double getForwardDisplacement() {

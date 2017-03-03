@@ -15,18 +15,23 @@ public class SetMotors extends Command {
 	
 	double rSpeed;
 	
-    public SetMotors(double lSpd, double rSpd) {
+	double m_time;
+	
+    public SetMotors(double lSpd, double rSpd, double time) {
 
     	requires(Robot.driveTrain);
     	
     	lSpeed = lSpd;
     	rSpeed = rSpd;
+    	m_time = time;
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrain.setLeftMotors(lSpeed);
     	Robot.driveTrain.setRightMotors(rSpeed);
+    	setTimeout(m_time);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,7 +41,7 @@ public class SetMotors extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true

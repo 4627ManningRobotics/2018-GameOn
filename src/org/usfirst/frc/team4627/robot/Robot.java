@@ -13,20 +13,13 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-//import org.usfirst.frc.team4627.robot.commands.ExampleCommand;
-//import org.usfirst.frc.team4627.robot.subsystems.ExampleSubsystem;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
+
+
 public class Robot extends IterativeRobot {
 	public static DriverTrain driveTrain = new DriverTrain(RobotMap.TIRES_KP, RobotMap.TIRES_KI, RobotMap.TIRES_KD);
 	public static Climber climber = new Climber();
-	public static Sensors sensors;
+	public static Sensors sensors = new Sensors();
 	public static OI oi;
 	//public static NetworkTable nwtables;
 	public static Agitator agitator = new Agitator(); 
@@ -40,15 +33,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
-    /**
-     * @apiNote Use table.getNumber("DistFromCamCenter") to get the distance between the gear spike and the center of the camera.
-     * @apiNote Use table.getNumber("AreaRatio") to get the area ratio of the two strips of reflective tape.
-     * @apiNote Use table.getNumber("DistFromTape") to get the distance from the reflective tape.
-     *
-     * This should be all we need to figure out the path for the robot to travel.
-     *
-     * For a concrete example of usage, see here: http://wpilib.screenstepslive.com/s/3120/m/7912/l/80205-writing-a-simple-networktables-program-in-c-and-java-with-a-java-client-pc-side
-     */
+
 	
 	
 	@Override
@@ -63,21 +48,25 @@ public class Robot extends IterativeRobot {
 		}
 		
 		SmartDashboard.putData(new PIDTurnToAngle(90));
-		SmartDashboard.putData(new NTTurnToAngle());
-		SmartDashboard.putData(new AutoPointAtPeg());
-		SmartDashboard.putData(new AutoDriveForward());
-		SmartDashboard.putData(new AutoTurnBack());
-		SmartDashboard.putData(new AutoDriveToPeg());
+		//SmartDashboard.putData(new NTTurnToAngle());
+		//SmartDashboard.putData(new AutoPointAtPeg());
+		//SmartDashboard.putData(new AutoDriveForward());
+		//SmartDashboard.putData(new AutoTurnBack());
 		
-		SmartDashboard.putData("PID", driveTrain.getPIDController());;
+		//SmartDashboard.putData(new AutoDriveToPeg());
+		
+		//SmartDashboard.putData("PID", driveTrain.getPIDController());
+		
+		chooser.addObject("Left", new LeftGearAuto());
+		chooser.addObject("Center", new CentreGearAuto());
+		chooser.addObject("Right", new RightGearAuto());
+		chooser.addDefault("Null", null);
+		
+		SmartDashboard.putData("Auto Modes", chooser);
 		
 	}
 
-	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
-	 */
+
 	@Override
 	public void disabledInit() {
 
@@ -91,44 +80,52 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new ManualAuto();
-		driveTrain.setForward(false);
-	
+		autonomousCommand = chooser.getSelected();
+		driveTrain.setForward(true);
+		sensors.setLights(true);
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
 
-	/**
-	 * This function is called periodically during autonomous
-	 */
+
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		//printData();
 	}
 
 	@Override
 	public void teleopInit() {
-	
+		sensors.setLights(false);
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-	
 		
 	}
 
-	/**
-	 * This function is called periodically during operator control
-	 */
+
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
+		//printData();
 	}
 
-	/**
-	 * This function is called periodically during test mode
-	 */
+	
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+	
+	void printData() {
+		System.out.print("heading: ");
+		System.out.print(sensors.getFused());
+		
+		System.out.print("  ang: ");
+		System.out.print(table.getNumber("Angle", 0));
+		System.out.print("  dist: ");
+		System.out.print(table.getNumber("Distance", 0));
+		System.out.print("  camdist: ");
+		System.out.println(table.getNumber("DistFromCamCenter", 0));
+		SmartDashboard.putBoolean("isForward", driveTrain.getForward());
+
 	}
 }
