@@ -7,21 +7,22 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ChangeDirection extends Command {
-
-    public ChangeDirection() {
+public class SetShooterTo extends Command {
+	
+	double m_speed;
+    public SetShooterTo(double speed) {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+        requires(Robot.shooters);
+        m_speed = speed; 
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.shooters.setShooter(m_speed);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.toggleForward();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,13 +1,9 @@
 
 package org.usfirst.frc.team4627.robot;
 
-import org.usfirst.frc.team4627.robot.commands.ManualAuto;
-import org.usfirst.frc.team4627.robot.subsystems.Climber;
-import org.usfirst.frc.team4627.robot.subsystems.DriverTrain;
-import org.usfirst.frc.team4627.robot.subsystems.HighGoal;
-import org.usfirst.frc.team4627.robot.subsystems.Intake;
-import org.usfirst.frc.team4627.robot.subsystems.Agitator;
-import org.usfirst.frc.team4627.robot.subsystems.Sensors;
+
+import org.usfirst.frc.team4627.robot.commands.*;
+import org.usfirst.frc.team4627.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,15 +24,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	public static DriverTrain driveTrain = new DriverTrain();
+	public static DriverTrain driveTrain = new DriverTrain(RobotMap.TIRES_KP, RobotMap.TIRES_KI, RobotMap.TIRES_KD);
 	public static Climber climber = new Climber();
-	//public static Sensors sensors;
+	public static Sensors sensors;
 	public static OI oi;
 	//public static NetworkTable nwtables;
 	public static Agitator agitator = new Agitator(); 
 	public static Intake intake = new Intake();
 	public static HighGoal shooters = new HighGoal();
 
+	public static NetworkTable table;
+
+	static public double autoAngle=0;
+	static public double autoDist=0;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -55,12 +55,21 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		
-		//sensors = new Sensors();
+		try {
+			table =  NetworkTable.getTable("DataTable");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		//SmartDashboard.putData("Auto mode", chooser);
-		//nwtables = NetworkTable.getTable("DataTable");
-
-
+		SmartDashboard.putData(new PIDTurnToAngle(90));
+		SmartDashboard.putData(new NTTurnToAngle());
+		SmartDashboard.putData(new AutoPointAtPeg());
+		SmartDashboard.putData(new AutoDriveForward());
+		SmartDashboard.putData(new AutoTurnBack());
+		SmartDashboard.putData(new AutoDriveToPeg());
+		
+		SmartDashboard.putData("PID", driveTrain.getPIDController());;
 		
 	}
 
@@ -79,29 +88,12 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
-	 */
+	
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = new ManualAuto();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
+		driveTrain.setForward(false);
+	
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -116,14 +108,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
+	
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		//System.out.println(nwtables.getNumber("distanceFinal");
-		//System.out.println(nwtables.getNumber("isCentered"));
+	
 		
 	}
 
@@ -133,8 +121,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putData(driveTrain);
-		SmartDashboard.putBoolean("isForward", driveTrain.getForward());
+		
 	}
 
 	/**

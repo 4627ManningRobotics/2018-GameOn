@@ -2,7 +2,7 @@ package org.usfirst.frc.team4627.robot;
 
 import org.usfirst.frc.team4627.robot.commands.ChangeDirection;
 import org.usfirst.frc.team4627.robot.commands.SetMotors;
-import org.usfirst.frc.team4627.robot.commands.ToggleShooter;
+import org.usfirst.frc.team4627.robot.commands.SetShooterTo;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -46,7 +46,9 @@ public class OI {
 	public OI(){
 	
 		driverA.whenPressed(new ChangeDirection());
-		operatorA.whenPressed(new ToggleShooter());
+		operatorA.whenPressed(new SetShooterTo(0));
+		operatorB.whenPressed(new SetShooterTo(-.95));
+		operatorX.whenPressed(new SetShooterTo(-0.9));
 		//driverB.whenPressed(new SetMotors(0.5, 0.5));
 		//driverX.whenPressed(new SetMotors(0, 0));
 		//driverY.whenPressed(new SetMotors(0.25, 0.25));

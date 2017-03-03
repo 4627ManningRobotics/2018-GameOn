@@ -23,9 +23,15 @@ public class GTADrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double rightTrigger = Robot.oi.getDriverRawAxis(RobotMap.AXIS_RIGHT_TRIGGER);
+    	double rightTrigger = Robot.oi.getDriverRawAxis(RobotMap.AXIS_RIGHT_TRIGGER);  	
     	double leftTrigger = Robot.oi.getDriverRawAxis(RobotMap.AXIS_LEFT_TRIGGER);
+    	
+    	
     	double leftJoystickXAxis = Robot.oi.getDriverRawAxis(RobotMap.AXIS_LEFT_STICK_X);
+    	if (Math.abs(leftJoystickXAxis)  < RobotMap.X_DEADZONE )
+    		leftJoystickXAxis = 0;
+    	
+    	
     	if(!Robot.driveTrain.getForward()){
     		leftJoystickXAxis  *= -1;
     	}
