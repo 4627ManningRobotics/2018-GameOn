@@ -23,7 +23,7 @@ public class ControlAgitator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.agitator.setMotor(Robot.oi.getOperatorRawAxis(RobotMap.AXIS_LEFT_STICK_Y));
+    	Robot.agitator.setMotor(Robot.oi.getOperatorRawAxis(RobotMap.AXIS_RIGHT_STICK_Y));
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -21,7 +21,6 @@ public class Robot extends IterativeRobot {
 	public static Climber climber = new Climber();
 	public static Sensors sensors = new Sensors();
 	public static OI oi;
-	//public static NetworkTable nwtables;
 	public static Agitator agitator = new Agitator(); 
 	public static Intake intake = new Intake();
 	public static HighGoal shooters = new HighGoal();
@@ -31,6 +30,7 @@ public class Robot extends IterativeRobot {
 	static public double autoAngle=0;
 	static public double autoDist=0;
 	Command autonomousCommand;
+	SendableChooser<Command> chooserTest = new SendableChooser<>();
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 
@@ -47,7 +47,7 @@ public class Robot extends IterativeRobot {
 			e1.printStackTrace();
 		}
 		
-		SmartDashboard.putData(new PIDTurnToAngle(90));
+		//SmartDashboard.putData(new PIDTurnToAngle(90));
 		//SmartDashboard.putData(new NTTurnToAngle());
 		//SmartDashboard.putData(new AutoPointAtPeg());
 		//SmartDashboard.putData(new AutoDriveForward());
@@ -57,12 +57,19 @@ public class Robot extends IterativeRobot {
 		
 		//SmartDashboard.putData("PID", driveTrain.getPIDController());
 		
+		
+		chooserTest.addObject("Left", new LeftGearAuto());
+		chooserTest.addObject("Center", new CentreGearAuto());
+		chooserTest.addObject("Right", new RightGearAuto());
 		chooser.addObject("Left", new LeftGearAuto());
 		chooser.addObject("Center", new CentreGearAuto());
 		chooser.addObject("Right", new RightGearAuto());
-		chooser.addDefault("Null", null);
-		
-		SmartDashboard.putData("Auto Modes", chooser);
+		chooser.addObject("Null", null);
+		//chooserTest.addDefault("Null", null);
+
+		SmartDashboard.putData("tester", chooserTest);
+		SmartDashboard.putData("Auto", chooser);
+
 		
 	}
 
@@ -80,7 +87,7 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		autonomousCommand = chooserTest.getSelected();
 		driveTrain.setForward(true);
 		sensors.setLights(true);
 		if (autonomousCommand != null)
@@ -125,7 +132,7 @@ public class Robot extends IterativeRobot {
 		System.out.print(table.getNumber("Distance", 0));
 		System.out.print("  camdist: ");
 		System.out.println(table.getNumber("DistFromCamCenter", 0));
-		SmartDashboard.putBoolean("isForward", driveTrain.getForward());
+		//SmartDashboard.putBoolean("isForward", driveTrain.getForward());
 
 	}
 }
