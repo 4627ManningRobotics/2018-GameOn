@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 		
 		//SmartDashboard.putData(new AutoDriveToPeg());
 		
-		//SmartDashboard.putData("PID", driveTrain.getPIDController());
+		SmartDashboard.putData("PID", driveTrain.getPIDController());
 		
 		
 		chooserTest.addObject("Left", new LeftGearAuto());
@@ -98,7 +98,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		//printData();
+		printData();
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//printData();
+		printData();
 	}
 
 	

@@ -65,6 +65,7 @@ public class RobotMap {
 		public static final double REGRESSION_M = -11.14;
 		public static final double REGRESSION_B = 130.3;
 		public static final double AUTO_SIDE_DIST = 7.5;
+		public static final double AUTO_GEAR_END_TURN = -4;
 
 }
 

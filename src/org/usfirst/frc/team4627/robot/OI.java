@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4627.robot;
 
 import org.usfirst.frc.team4627.robot.commands.ChangeDirection;
-import org.usfirst.frc.team4627.robot.commands.SetMotors;
 import org.usfirst.frc.team4627.robot.commands.SetShooterTo;
 
 import edu.wpi.first.wpilibj.Joystick;

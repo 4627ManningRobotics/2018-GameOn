@@ -2,9 +2,6 @@ package org.usfirst.frc.team4627.robot.commands;
 
 import org.usfirst.frc.team4627.robot.Robot;
 
-import org.usfirst.frc.team4627.robot.Robot;
-import org.usfirst.frc.team4627.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -50,7 +47,6 @@ public class LineUpPeg extends Command {
 
 */
     }
-	@SuppressWarnings("deprecation")
 	protected boolean isFinished() {
 		/*
         if(Robot.nwtables.getNumber("DistFromCamCenter") > 155 && Robot.nwtables.getNumber("DistFromCamCenter") < 165) {

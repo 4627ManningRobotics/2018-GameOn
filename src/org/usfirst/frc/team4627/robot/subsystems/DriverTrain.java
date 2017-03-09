@@ -8,7 +8,6 @@ import org.usfirst.frc.team4627.robot.commands.GTADrive;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *

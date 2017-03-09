@@ -14,5 +14,7 @@ public class RightGearAuto extends CommandGroup {
     	addSequential(new SetMotors(-RobotMap.AUTO_SPEED, -RobotMap.AUTO_SPEED, RobotMap.AUTO_SIDE_DIST*RobotMap.AUTO_SECPFT));
     	addSequential(new PIDTurnToAngle(-65));
     	addSequential(new AutoDriveToPeg());
+        addSequential(new PIDTurnToAngle(RobotMap.AUTO_GEAR_END_TURN));
+
     }
 }
