@@ -2,10 +2,16 @@
 package org.usfirst.frc.team4627.robot;
 
 
+import java.util.Arrays;
+
 import org.usfirst.frc.team4627.robot.commands.*;
 import org.usfirst.frc.team4627.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Parity;
+import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -26,7 +32,12 @@ public class Robot extends IterativeRobot {
 	public static HighGoal shooters = new HighGoal();
 
 	public static NetworkTable table;
-
+	
+	public static SerialPort rs232 = new SerialPort(115200, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
+	public static double distFromCamCenter = 0;
+	public static double distance = 0;
+	
+	
 	static public double autoAngle=0;
 	static public double autoDist=0;
 	Command autonomousCommand;
@@ -40,14 +51,16 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		
-		try {
-			table =  NetworkTable.getTable("DataTable");
-		} catch (Exception e1) {
+	//	try {
+			
+		//} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		//	e1.printStackTrace();
+		//}
 		
-		//SmartDashboard.putData(new PIDTurnToAngle(90));
+		rs232.enableTermination();
+		
+		SmartDashboard.putData(new PIDTurnToAngle(65));
 		//SmartDashboard.putData(new NTTurnToAngle());
 		//SmartDashboard.putData(new AutoPointAtPeg());
 		//SmartDashboard.putData(new AutoDriveForward());
@@ -61,14 +74,20 @@ public class Robot extends IterativeRobot {
 		chooserTest.addObject("Left", new LeftGearAuto());
 		chooserTest.addObject("Center", new CentreGearAuto());
 		chooserTest.addObject("Right", new RightGearAuto());
-		chooser.addObject("Left", new LeftGearAuto());
-		chooser.addObject("Center", new CentreGearAuto());
-		chooser.addObject("Right", new RightGearAuto());
+		chooser.addObject("Foo", new LeftGearAuto());
+		chooser.addObject("Bar", new CentreGearAuto());
+		chooser.addObject("Bat", new RightGearAuto());
 		chooser.addObject("Null", null);
-		//chooserTest.addDefault("Null", null);
+		chooserTest.addObject("Null", null);
+		chooserTest.addObject("Centre No Cam", new AutoCenterGroup());
+		chooserTest.addDefault("Left No Cam", new AutoLeftNoCam());
+		chooserTest.addObject("Right No Cam", new AutoRightNoCam());
 
 		SmartDashboard.putData("tester", chooserTest);
-		SmartDashboard.putData("Auto", chooser);
+		//SmartDashboard.putData("Auto", chooser);
+		
+		SmartDashboard.putNumber("Distance", distance);
+		SmartDashboard.putNumber("DistFromCamCenter", distFromCamCenter);
 
 		
 	}
@@ -87,9 +106,9 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooserTest.getSelected();
+		Robot.driveTrain.setPID();
+		autonomousCommand = null;// new AutoRightNoCam();//chooserTest.getSelected();
 		driveTrain.setForward(true);
-		sensors.setLights(true);
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -97,13 +116,27 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
+		sensors.setLights(true);
+
+
+		if (rs232.getBytesReceived() > 0 ) {
+			String input = rs232.readString();
+			String[] autoValues = input.split(",");
+			System.out.println(input);
+			if (!autoValues[0].equals("inf"))
+				distFromCamCenter = Double.parseDouble(autoValues[0]);
+			if (autoValues.length>1) {
+				if (!autoValues[1].equals("inf")) {
+				distance = Double.parseDouble(autoValues[1]);
+				}
+			}
+		}
 		Scheduler.getInstance().run();
 		printData();
 	}
 
 	@Override
 	public void teleopInit() {
-		sensors.setLights(false);
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
@@ -111,7 +144,9 @@ public class Robot extends IterativeRobot {
 
 
 	@Override
-	public void teleopPeriodic() {
+	public void teleopPeriodic() {		
+		sensors.setLights(false);
+
 		Scheduler.getInstance().run();
 		printData();
 	}
@@ -123,15 +158,19 @@ public class Robot extends IterativeRobot {
 	}
 	
 	void printData() {
-		System.out.print("heading: ");
-		System.out.print(sensors.getFused());
+		SmartDashboard.putNumber("Heading", sensors.getFused());
+		/*
+		System.out.print("  P: ");
+		System.out.println(driveTrain.getPIDController().getP());
+		System.out.print("  I: ");
+		System.out.println(driveTrain.getPIDController().getI());
+		System.out.print("  D: ");
+		System.out.println(driveTrain.getPIDController().getD());
+		*/
 		
-		System.out.print("  ang: ");
-		System.out.print(table.getNumber("Angle", 0));
-		System.out.print("  dist: ");
-		System.out.print(table.getNumber("Distance", 0));
-		System.out.print("  camdist: ");
-		System.out.println(table.getNumber("DistFromCamCenter", 0));
+		SmartDashboard.putNumber("Distance", distance);
+		SmartDashboard.putNumber("DistFromCamCenter", distFromCamCenter);
+		
 		//SmartDashboard.putBoolean("isForward", driveTrain.getForward());
 
 	}

@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoPointAtPeg extends Command {
+public class AutoPointAtPegPID extends Command {
 
 		double angle;
-    public AutoPointAtPeg() {
+    public AutoPointAtPegPID() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
         }
@@ -21,7 +21,7 @@ public class AutoPointAtPeg extends Command {
 
         // Called repeatedly when this Command is scheduled to run
         protected void execute() {
-        	angle = -Robot.table.getNumber("DistFromCamCenter", 0)/5;
+        	angle = -Robot.distFromCamCenter/5;
         	System.out.println(angle);
         	double setpoint =  (Robot.sensors.getFused()  +  angle)    %360  ;
         	if (setpoint <0) 

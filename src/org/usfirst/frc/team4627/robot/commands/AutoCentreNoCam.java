@@ -8,29 +8,26 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoDriveForward extends Command {
+public class AutoCentreNoCam extends Command {
 
-	
-    public AutoDriveForward() {
+	double heading;
+    public AutoCentreNoCam() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	double hypotenuse = Robot.autoDist;
-    	double angleOne = 90-Math.abs(Robot.autoAngle);
-    	
-    	double opposite = hypotenuse*Math.cos(angleOne);
-    	double time = opposite*RobotMap.AUTO_SECPFT;
-    	System.out.println(time);
-    	setTimeout(Math.abs(time));
+    	heading = Robot.sensors.getFused();
+    	Robot.driveTrain.setSetpoint(heading);
+    	Robot.driveTrain.enable();
+    	setTimeout(3);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.setLeftMotors(RobotMap.AUTO_SPEED);
-    	Robot.driveTrain.setRightMotors(RobotMap.AUTO_SPEED);
+    	Robot.driveTrain.setLeftMotors( (-RobotMap.AUTO_SPEED + (Robot.driveTrain.PIDOutput)) );
+    	Robot.driveTrain.setRightMotors( (-RobotMap.AUTO_SPEED - (Robot.driveTrain.PIDOutput)) );
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,14 +37,11 @@ public class AutoDriveForward extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.setLeftMotors(0);
-    	Robot.driveTrain.setRightMotors(0);
-    	
+    	Robot.driveTrain.disable();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

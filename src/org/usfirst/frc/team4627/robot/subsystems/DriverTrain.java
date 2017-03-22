@@ -19,8 +19,8 @@ public class DriverTrain extends PIDSubsystem {
     	
 	
 	public double PIDOutput;
-	
-    	public DriverTrain(double p, double i, double d) {
+		
+    public DriverTrain(double p, double i, double d) {
 		super(p, i, d);
 		this.getPIDController().setInputRange(0, 360);
     	this.getPIDController().setContinuous(true);
@@ -36,6 +36,10 @@ public class DriverTrain extends PIDSubsystem {
     	CANTalon bottomLeft = new CANTalon(RobotMap.MOTOR_LEFT_BOTTOM);
     	
     	boolean isForward = false;
+    
+    public void setPID(){
+    	this.getPIDController().setPID(RobotMap.TIRES_KP, RobotMap.TIRES_KI, RobotMap.TIRES_KD);
+    }
     
     
     public void setLeftMotors(double speed) {

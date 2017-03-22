@@ -45,6 +45,7 @@ public class OI {
 	public OI(){
 	
 		driverA.whenPressed(new ChangeDirection());
+		//driverY.whenPressed(new LineUpGear());
 		operatorA.whenPressed(new SetShooterTo(0));
 		operatorB.whenPressed(new SetShooterTo(-.95));
 		operatorX.whenPressed(new SetShooterTo(-0.9));
@@ -77,11 +78,8 @@ public class OI {
 	 * @return Returns a double for the value
 	 */
 	public double getDriverRawAxis(int axis){
-		double val = driver.getRawAxis(axis);
-		if (val>=0)
-			return (val*val);
-		else
-			return (-val*val);
+		return driver.getRawAxis(axis);
+		
 	}
 	
 	/**

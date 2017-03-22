@@ -1,61 +1,62 @@
 package org.usfirst.frc.team4627.robot.commands;
 
 import org.usfirst.frc.team4627.robot.Robot;
+import org.usfirst.frc.team4627.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class NTTurnToAngle extends Command {
+public class GyroTurnToAngle extends Command {
 
-	double target;
-    public NTTurnToAngle() {
-    	//target=angle;
-    	
+	double startHeading;
+	double targetHeading;
+	double m_angle;
+    public GyroTurnToAngle(double angle) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
+        m_angle=angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.autoAngle=Robot.table.getNumber("Angle", 0);
-    	Robot.autoDist=Robot.table.getNumber("Distance", 0);
-    	if (Robot.autoAngle < 0 )
-    		target=90+Robot.autoAngle;
-    	else
-    		target=-90+Robot.autoAngle;
-    	System.out.println(target);
-    	double setpoint =  (Robot.sensors.getFused()  +  target)    %360;
-    	if (setpoint<0)
-    		setpoint+=360;
-    	Robot.driveTrain.setSetpoint(  setpoint   );
-    	Robot.driveTrain.enable();
+    	startHeading= Robot.sensors.getFused();
+    	targetHeading = (startHeading+m_angle)%360;
+    	if (targetHeading<0)
+    		targetHeading+=360;
+    	
+    	
+    	if (m_angle < 0) {
+    		Robot.driveTrain.setLeftMotors(-RobotMap.AUTO_TURN_SPEED);
+    		Robot.driveTrain.setRightMotors(RobotMap.AUTO_TURN_SPEED);
+    	}
+    	else {
+    		Robot.driveTrain.setLeftMotors(RobotMap.AUTO_TURN_SPEED);
+    		Robot.driveTrain.setRightMotors(-RobotMap.AUTO_TURN_SPEED);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.setLeftMotors(Robot.driveTrain.PIDOutput);
-    	Robot.driveTrain.setRightMotors(-Robot.driveTrain.PIDOutput);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.driveTrain.onTarget();
+    	
+        if (Math.abs(Robot.sensors.getFused() - targetHeading)  < 3 )
+    		return true;
+    	else return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.disable();
-    	Robot.driveTrain.setLeftMotors(0);
     	Robot.driveTrain.setRightMotors(0);
-    	
+    	Robot.driveTrain.setLeftMotors(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
-    
 }

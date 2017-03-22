@@ -15,16 +15,17 @@ public class Sensors extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-	AHRS gyro = new AHRS(I2C.Port.kOnboard);
-	Relay backLights = new Relay(0);
+	//AHRS gyro = new AHRS(I2C.Port.kOnboard);
+	Relay backLights = new Relay(1);
 	
 	public double preAngle;
 	public double normAng;
 	
+	public boolean lights;
 	
 	public double getAngle(){
 		
-		double ang = gyro.getAngle();
+		double ang = 0;//gyro.getAngle();
 		if (ang > 360 || ang < -360) ang  %= 360;
 		if(ang < 0) ang += 360;
 		
@@ -33,26 +34,24 @@ public class Sensors extends Subsystem {
 	}
 	
 	public void setLights(boolean bool) {
-		if (bool)
-			backLights.set(Value.kForward);
-		else
+		if (bool) {
+			lights = true;
+			backLights.set(Value.kForward);	
+		}
+		else {
+			lights = false;
 			backLights.set(Value.kOff);
+		}
 	}
 	
-	public double getForwardDisplacement() {
-		return -gyro.getDisplacementX();  //based on NAVX orientation
-	}
 	
-	public double getRawAngle() {
-		return gyro.getAngle();
-	}
 	
-	public void resetGyro() {
-		gyro.reset();
-	}
+	
+	
+	
 	
 	public double getFused() {
-		return gyro.getFusedHeading();
+		return 0;//gyro.getFusedHeading();
 	}
 	
 	
