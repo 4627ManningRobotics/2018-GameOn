@@ -12,7 +12,7 @@ public class GyroTurnToAngle extends Command {
 
 	double startHeading;
 	double targetHeading;
-	double m_angle;
+	private double m_angle;
     public GyroTurnToAngle(double angle) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
@@ -21,19 +21,19 @@ public class GyroTurnToAngle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	startHeading= Robot.sensors.getFused();
+    	startHeading= Robot.driveTrain.getGyroAngle();
     	targetHeading = (startHeading+m_angle)%360;
     	if (targetHeading<0)
     		targetHeading+=360;
     	
     	
     	if (m_angle < 0) {
-    		Robot.driveTrain.setLeftMotors(-RobotMap.AUTO_TURN_SPEED);
-    		Robot.driveTrain.setRightMotors(RobotMap.AUTO_TURN_SPEED);
+    		Robot.driveTrain.setLeftMotor(-RobotMap.AUTO_TURN_SPEED);
+    		Robot.driveTrain.setRightMotor(RobotMap.AUTO_TURN_SPEED);
     	}
     	else {
-    		Robot.driveTrain.setLeftMotors(RobotMap.AUTO_TURN_SPEED);
-    		Robot.driveTrain.setRightMotors(-RobotMap.AUTO_TURN_SPEED);
+    		Robot.driveTrain.setLeftMotor(RobotMap.AUTO_TURN_SPEED);
+    		Robot.driveTrain.setRightMotor(-RobotMap.AUTO_TURN_SPEED);
     	}
     }
 
@@ -44,15 +44,15 @@ public class GyroTurnToAngle extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	
-        if (Math.abs(Robot.sensors.getFused() - targetHeading)  < 3 )
+        if (Math.abs(Robot.driveTrain.getGyroAngle() - targetHeading)  < 3 /* within x degrees */)
     		return true;
     	else return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.setRightMotors(0);
-    	Robot.driveTrain.setLeftMotors(0);
+    	Robot.driveTrain.setRightMotor(0);
+    	Robot.driveTrain.setLeftMotor(0);
     }
 
     // Called when another command which requires one or more of the same
