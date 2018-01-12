@@ -44,32 +44,6 @@ public class OI {
 	
 	public OI(){
 	
-		driverA.whenPressed(new ChangeDirection());
-		//driverY.whenPressed(new LineUpGear());
-		operatorA.whenPressed(new SetShooterTo(0));
-		operatorB.whenPressed(new SetShooterTo(-.95));
-		operatorX.whenPressed(new SetShooterTo(-0.9));
-		//driverB.whenPressed(new SetMotors(0.5, 0.5));
-		//driverX.whenPressed(new SetMotors(0, 0));
-		//driverY.whenPressed(new SetMotors(0.25, 0.25));
-		/*driverLeftBumper.whenPressed(null);
-		driverRightBumper.whenPressed(null);
-		driverBack.whenPressed(null);
-		driverStart.whenPressed(null);
-		driverLeftClick.whenPressed(null);
-		driverRightClick.whenPressed(null);
-		
-		operatorA.whenPressed(null);
-		operatorB.whenPressed(null);
-		operatorX.whenPressed(null);
-		operatorY.whenPressed(null);
-		operatorLeftBumper.whenPressed(null);
-		operatorRightBumper.whenPressed(null);
-		operatorBack.whenPressed(null);
-		operatorStart.whenPressed(null);
-		operatorLeftClick.whenPressed(null);
-		operatorRightClick.whenPressed(null);
-		*/
 	}
 	
 	/**
