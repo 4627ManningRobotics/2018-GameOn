@@ -11,56 +11,13 @@ import edu.wpi.first.wpilibj.command.Command;
 public class GTADrive extends Command {
 
     public GTADrive() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	// Marki's test commit
-    	requires(Robot.driveTrain);
-    }
-
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	double rightTrigger = Robot.oi.getDriverRawAxis(RobotMap.AXIS_RIGHT_TRIGGER);  	
-    	double leftTrigger = Robot.oi.getDriverRawAxis(RobotMap.AXIS_LEFT_TRIGGER);
+    	double rightTrigger = -Robot.oi.getDriverRawAxis(RobotMap.AXIS_RIGHT_TRIGGER);
+    	double leftTrigger = -Robot.oi.getDriverRawAxis(RobotMap.AXIS_LEFT_TRIGGER);
+    	double leftStickX = Robot.oi.getDriverRawAxis(RobotMap.AXIS_LEFT_STICK_X);
     	
-    	
-    	double leftJoystickXAxis = Robot.oi.getDriverRawAxis(RobotMap.AXIS_LEFT_STICK_X);
-    	if (Math.abs(leftJoystickXAxis)  < RobotMap.X_DEADZONE )
-    		leftJoystickXAxis = 0;
-    	
-    	
-    	if(!Robot.driveTrain.getForward()){
-    		leftJoystickXAxis  *= -1;
-    	}
-    	
-    	double leftMotors = (rightTrigger - leftTrigger + leftJoystickXAxis);
-    	double rightMotors = (rightTrigger - leftTrigger - leftJoystickXAxis);
-    	
-    	if (leftMotors > RobotMap.ROBOT_MAX_SPEED) {
-    		   
-    		   leftMotors = RobotMap.ROBOT_MAX_SPEED;
-    		   
-    	   }
-    	   if (rightMotors > RobotMap.ROBOT_MAX_SPEED) {
-    		   
-    		   rightMotors = RobotMap.ROBOT_MAX_SPEED;
-    		   
-    	   }
-    	   if (leftMotors < RobotMap.ROBOT_MIN_SPEED) {
-    		   
-    		   leftMotors = RobotMap.ROBOT_MIN_SPEED;
-    		   
-    	   }
-    	   if (rightMotors < RobotMap.ROBOT_MIN_SPEED) {
-    		   
-    		   rightMotors = RobotMap.ROBOT_MIN_SPEED;
-    		   
-    	   }
-    	   Robot.driveTrain.setLeftMotors(leftMotors);
-    	   Robot.driveTrain.setRightMotors(rightMotors);
+    Robot.driveTrain.setLeftMotor(-rightTrigger + leftTrigger + leftStickX );
+	Robot.driveTrain.setRightMotor(-rightTrigger + leftTrigger - leftStickX);
+    
     }
 
     // Make this return true when this Command no longer needs to run execute()
