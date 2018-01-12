@@ -15,9 +15,8 @@ public class GTADrive extends Command {
     	double leftTrigger = -Robot.oi.getDriverRawAxis(RobotMap.AXIS_LEFT_TRIGGER);
     	double leftStickX = Robot.oi.getDriverRawAxis(RobotMap.AXIS_LEFT_STICK_X);
     	
-    Robot.driveTrain.setLeftMotor(-rightTrigger + leftTrigger + leftStickX );
-	Robot.driveTrain.setRightMotor(-rightTrigger + leftTrigger - leftStickX);
-    
+    	Robot.driveTrain.setLeftMotor(-rightTrigger + leftTrigger + leftStickX );
+    	Robot.driveTrain.setRightMotor(-rightTrigger + leftTrigger - leftStickX);
     }
 
     // Make this return true when this Command no longer needs to run execute()
