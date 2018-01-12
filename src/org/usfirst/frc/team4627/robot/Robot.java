@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Robot extends IterativeRobot {
-	public static DriverTrain driveTrain = new DriverTrain(RobotMap.TIRES_KP, RobotMap.TIRES_KI, RobotMap.TIRES_KD);
+	public static DriveTrain driveTrain = new DriveTrain(RobotMap.TIRES_KP, RobotMap.TIRES_KI, RobotMap.TIRES_KD);
 	public static Climber climber = new Climber();
 	public static Sensors sensors = new Sensors();
 	public static OI oi;
