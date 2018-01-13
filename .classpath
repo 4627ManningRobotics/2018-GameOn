@@ -8,7 +8,10 @@
 	<classpathentry kind="var" path="networktables" sourcepath="networktables.sources"/>
 	<classpathentry kind="var" path="opencv" sourcepath="opencv.sources"/>
 	<classpathentry kind="var" path="navx-mxp"/>
+<<<<<<< HEAD
+=======
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
+>>>>>>> 19edab51d4b7a6079a6383a8d24f5f178c359536
 	<classpathentry kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
