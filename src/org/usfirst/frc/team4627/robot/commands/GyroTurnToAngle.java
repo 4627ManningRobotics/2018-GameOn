@@ -28,12 +28,12 @@ public class GyroTurnToAngle extends Command {
     	
     	
     	if (m_angle < 0) {
-    		Robot.driveTrain.setLeftMotor(-RobotMap.AUTO_TURN_SPEED);
-    		Robot.driveTrain.setRightMotor(RobotMap.AUTO_TURN_SPEED);
+    		Robot.driveTrain.setLeftMotor(-1);
+    		Robot.driveTrain.setRightMotor(1);
     	}
     	else {
-    		Robot.driveTrain.setLeftMotor(RobotMap.AUTO_TURN_SPEED);
-    		Robot.driveTrain.setRightMotor(-RobotMap.AUTO_TURN_SPEED);
+    		Robot.driveTrain.setLeftMotor(1);
+    		Robot.driveTrain.setRightMotor(-1);
     	}
     }
 
